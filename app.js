@@ -39,11 +39,22 @@ function addTask(title, category) {
     updateUI();
 }
 
+function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(task => task.completed).length;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    if (statTotal) statTotal.textContent = total;
+    if (statCompleted) statCompleted.textContent = completed;
+    if (statProgress) statProgress.textContent = percentage;
+}
+
 function updateUI() {
     saveToStorage();
     renderTasks();
-    getFilteredTasks();
+    updateStats();
 }
+
 
 function getFilteredTasks() {
     if (currentFilter === 'completed') {
