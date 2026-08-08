@@ -42,6 +42,7 @@ function addTask(title, category) {
 function updateUI() {
     saveToStorage();
     renderTasks();
+    getFilteredTasks();
 }
 
 function getFilteredTasks() {
@@ -121,5 +122,20 @@ taskList.addEventListener('click', (event) => {
         deleteTask(taskId)
     }
 })
+
+// Delegação de eventos no container dos botões do filtro
+filterContainer.addEventListener('click', (event)=> {
+    const target = event.target;
+
+    if (!target.classList.contains('filter-btn')) return;
+
+    const buttons = filterContainer.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    target.classList.add('active');
+    currentFilter = target.dataset.filter;
+
+    renderTasks();
+});
 
 updateUI();
