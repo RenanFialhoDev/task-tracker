@@ -25,7 +25,7 @@ Este projeto é um **Gerenciador de Tarefas** simples construído com **HTML**, 
 Projeto/
 │
 ├── index.html          # Arquivo principal HTML
-├── styles.css          # Arquivo com os estilos CSS (não incluído no contexto fornecido)
+├── styles.css          # Arquivo com os estilos CSS
 └── script.js           # Arquivo principal com o código JavaScript
 ```
 
