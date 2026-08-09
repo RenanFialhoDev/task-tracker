@@ -39,10 +39,22 @@ function addTask(title, category) {
     updateUI();
 }
 
+function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(task => task.completed).length;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    if (statTotal) statTotal.textContent = total;
+    if (statCompleted) statCompleted.textContent = completed;
+    if (statProgress) statProgress.textContent = percentage;
+}
+
 function updateUI() {
     saveToStorage();
     renderTasks();
+    updateStats();
 }
+
 
 function getFilteredTasks() {
     if (currentFilter === 'completed') {
@@ -121,5 +133,20 @@ taskList.addEventListener('click', (event) => {
         deleteTask(taskId)
     }
 })
+
+// Delegação de eventos no container dos botões do filtro
+filterContainer.addEventListener('click', (event)=> {
+    const target = event.target;
+
+    if (!target.classList.contains('filter-btn')) return;
+
+    const buttons = filterContainer.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    target.classList.add('active');
+    currentFilter = target.dataset.filter;
+
+    renderTasks();
+});
 
 updateUI();
